@@ -22,7 +22,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', [HomeController::class, 'home']);
 	Route::get('dashboard', function () {
-		return view('dashboard');
+        $users = \App\Models\User::count();
+        $clientes = \App\Models\Cliente::count();
+        $autos = \App\Models\Auto::count();
+        $ventas = \App\Models\Venta::count();
+		return view('dashboard', compact('users', 'clientes', 'autos', 'ventas'));
 	})->name('dashboard');
 
     //Modificaciones
